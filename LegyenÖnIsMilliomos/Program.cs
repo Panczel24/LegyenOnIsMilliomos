@@ -7,7 +7,8 @@ namespace LegyenÖnIsMilliomos
 		static void Main(string[] args)
 		{
 			Sorkerdesek sorkerdesek = new Sorkerdesek();
-			sorkerdesek.ReadFromFile();
+			sorkerdesek.SorkerdesValasztasa();
+			//sorkerdesek.ReadFromFile();
 		}
 	}
 }

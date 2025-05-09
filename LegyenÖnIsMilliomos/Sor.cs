@@ -9,35 +9,41 @@ namespace LegyenÖnIsMilliomos
 	internal class Sor
 	{
 		string kerdes;
-		string valasz1;
-		string valasz2;
-		string valasz3;
-		string valasz4;
+		List<string> valaszok = new List<string>()
+			;
+	
 		string megoldas;
 		string kategoria;
-
 		public Sor(string kerdes, string valasz1, string valasz2, string valasz3, string valasz4, string megoldas, string kategoria)
 		{
 			this.kerdes = kerdes;
-			this.valasz1 = valasz1;
-			this.valasz2 = valasz2;
-			this.valasz3 = valasz3;
-			this.valasz4 = valasz4;
+			this.valaszok.Add(valasz1);
+			this.valaszok.Add(valasz2);
+			this.valaszok.Add(valasz3);
+			this.valaszok.Add(valasz4);
+			
 			this.megoldas = megoldas;
 			this.kategoria = kategoria;
 		}
 
 		public string Kerdes { get => kerdes; set => kerdes = value; }
-		public string Valasz1 { get => valasz1; set => valasz1 = value; }
-		public string Valasz2 { get => valasz2; set => valasz2 = value; }
-		public string Valasz3 { get => valasz3; set => valasz3 = value; }
-		public string Valasz4 { get => valasz4; set => valasz4 = value; }
+	
+
 		public string Megoldas { get => megoldas; set => megoldas = value; }
 		public string Kategoria { get => kategoria; set => kategoria = value; }
+		public List<string> Valaszok { get => valaszok; set => valaszok = value; }
+
+	
+
+
+
 
 		public override string? ToString()
 		{
-			return $"Kérdés: {kerdes}, \n lehetőség1: {valasz1},  lehetőség2: {valasz2}, lehetőség3: {valasz3}, lehetőség4: {valasz4}, megoldas: {megoldas}, kategória> {kategoria}" ;
+			return $"Kérdés: {kerdes}\n" +
+				$"A: {valaszok[0],-30} B: {valaszok[1],-30}\n" +
+				$"C: {valaszok[2],-30} D: {valaszok[3],-30}\n" +
+				$"Kategória: {kategoria}, Megoldás: {megoldas}";
 		}
 	}
 }
