@@ -1,10 +1,13 @@
-﻿namespace LegyenÖnIsMilliomos
+﻿using System.Collections.Generic;
+
+namespace LegyenÖnIsMilliomos
 {
 	internal class Program
 	{
 		static void Main(string[] args)
 		{
-			Console.WriteLine("Hello, World!");
+			Sorkerdesek sorkerdesek = new Sorkerdesek();
+			sorkerdesek.ReadFromFile();
 		}
 	}
 }
