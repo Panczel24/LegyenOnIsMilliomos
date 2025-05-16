@@ -59,17 +59,6 @@ namespace LegyenÖnIsMilliomos
 
         }
 
-		//public void Kiiras()
-		//{
-
-		//	for (int i = 0; i < sorkerdes.Count; i++)
-		//	{
-		//		Console.WriteLine(sorkerdes[i]);
-		//	}
-  //          Console.WriteLine();
-  //          Console.WriteLine();
-  //      }
-
 	}
 
 }
