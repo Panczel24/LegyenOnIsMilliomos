@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Media;
+using NAudio.Wave;
 
 namespace LegyenÖnIsMilliomos
 {
 	internal class Sorkerdesek
 	{
-		List<Sor> sorkerdes = new List<Sor>();
+
+        List<Sor> sorkerdes = new List<Sor>();
 		static Random r = new Random();
 
 		public Sorkerdesek()
@@ -38,8 +41,11 @@ namespace LegyenÖnIsMilliomos
 		}
 
 
-		public void SorkerdesValasztasa()
+		public bool SorkerdesValasztasa()
 		{
+            var hang = new Hang();
+
+            bool joe = false;
 			int veletlen = r.Next(0, sorkerdes.Count);
 			Console.WriteLine(sorkerdes[veletlen]);
 
@@ -47,15 +53,18 @@ namespace LegyenÖnIsMilliomos
 			string valasz = Console.ReadLine().ToUpper();
 			if (valasz == sorkerdes[veletlen].Megoldas)
 			{
+                hang.Effektus("jo.wav");
 				Console.WriteLine("Sikeres, továbbléphet a játékra!");
-			}
+				joe = true;
+            }
 			else
 			{
-
+                hang.Effektus("rossz.wav");
 				Console.WriteLine("Sikertelen,játék vége!");
-			}
+				joe = false;
+            }
 
-
+			return joe;
 
         }
 

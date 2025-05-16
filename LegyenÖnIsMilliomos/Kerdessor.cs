@@ -3,26 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Media;
 using System.Threading.Tasks.Dataflow;
+using NAudio.Wave;
 
 namespace LegyenÖnIsMilliomos
 {
     internal class Kerdessor
     {
 
-        private void Hang(string nev)
-        {
-            try
-            {
-                SoundPlayer player = new SoundPlayer(nev);
-                player.Play();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Hiba a hang lejátszásakor: {ex.Message}");
-            }
-        }
+        
+
+       
         public List<List<Kerdes>> KerdesCsoport { get; private set; } = new();
         List<Kerdes> kerdessor = new List<Kerdes>();
         List<Kerdes> kerdessor1 = new List<Kerdes>();
@@ -41,15 +32,12 @@ namespace LegyenÖnIsMilliomos
         List<Kerdes> kerdessor14 = new List<Kerdes>();
         List<Kerdes> kerdessor15 = new List<Kerdes>();
 
-
-
         static Random r = new Random();
 
         public Kerdessor()
         {
             ReadFromFile();
         }
-
 
         public void ReadFromFile()
         {
@@ -144,14 +132,22 @@ namespace LegyenÖnIsMilliomos
 
         public void KerdessorElkeszites()
         {
+           Thread.Sleep(2000);
+            var hang = new Hang();
+            hang.HatterZene("izgalom.wav");
+            int penz = 0;
+            int biz3 = 300000;
+            int biz6= 600000;
+            int biz9 = 900000;    
+            int biz12 = 1200000;
+            int max = 1500000;
             for (int i = 0; i < KerdesCsoport.Count; i++)
             {
                 List<Kerdes> aktualisCsoport = KerdesCsoport[i];
                 int veletlenIndex = r.Next(aktualisCsoport.Count);
                 Kerdes kerdes = aktualisCsoport[veletlenIndex];
 
-                Thread.Sleep(2000);
-                Console.WriteLine($"\nKérdés a(z) {i + 1}. csoportból");
+                Console.WriteLine($"\n{i + 1}. kérdés");
                 Console.WriteLine(kerdes);
                 Console.Write("Adja meg a jó választ (A, B, C, D): ");
                 string valasz = Console.ReadLine().ToUpper();
@@ -159,13 +155,30 @@ namespace LegyenÖnIsMilliomos
                 if (valasz == kerdes.Megoldas.ToUpper())
                 {
                     Console.WriteLine("Helyes válasz!");
-                    Hang("jo.wav");
-                    
+                    penz += 100000;
+                    Console.WriteLine($"Eddig ennyi pénzt szereztél:{penz}");
+                    if (penz != biz3 && penz != biz6 && penz != biz9 && penz != biz12)
+                    {
+                        hang.Effektus("jo.wav");
+                    }
+                    if (penz == biz3 || penz ==biz6 || penz ==biz9 || penz ==biz12)
+                    {
+                        hang.Effektus("biztos.wav");
+                        Console.WriteLine("Gratulálok, egy biztos nyereményhez értél!");
+                        Thread.Sleep(4000);
+                    }
+                    if (penz==max)
+                    {
+                        Console.WriteLine("Gratulálok, megnyerte az egymillió-ötszázezer forintot!");
+                        hang.Leallitas();
+                        hang.Effektus("vege.wav");
+                    }
+
                 }
                 else
                 {
-                   Console.WriteLine("Sikertelen, játék vége!");
-                    Hang("rossz.wav");
+                    hang.Leallitas();
+                    hang.Effektus("rossz.wav");
                     return;
                 }
             }           
