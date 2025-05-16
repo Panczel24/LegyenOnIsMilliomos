@@ -20,7 +20,7 @@ namespace LegyenÖnIsMilliomos
                 "\nElőször felteszünk egy kérdést, amely eldönti, hogy bekerülhet-e a játékba" +
                 "\n Akérdések mindig nehzebbek lesznek az előzőnél" +
                 "\nMinden helyes kérdés százezer forintot ér, viszont csak bizonyos összegeknél van biztos jövedelem" +
-                "\nEzek az összegek a háromszázezer-hatszázezer-kilencszázezer-egymilliókétszázezer-és másfél millió forintok." +
+                "\nEzek az összegek a háromszázezer-hatszázezer-kilencszázezer-egymilliókétszázezer-és másfél millió forintot." +
                 "\nHa például kétszázezer forintnál kiesik, akkor sajnos nem nyert semmit.");
             Console.WriteLine("Jó játékot kívánok! (nyomj entert az indításhoz)");
             Console.ReadLine();
@@ -53,18 +53,36 @@ namespace LegyenÖnIsMilliomos
 
                     Console.WriteLine($"\n{i + 1}. kérdés");
                     Console.WriteLine(kerdes);
-                    Console.WriteLine("Kér segítséget? (nem, " + string.Join(", ", segitsegTipusok) + ")");
-                    string kere = Console.ReadLine().ToLower();
+                    string kere = "nem";
+                    if (segitsegTipusok.Count > 0)
+                    {
+                        do
+                        {
+                            Console.WriteLine("Kérsz segítséget? (nem, " + string.Join(", ", segitsegTipusok) + ")");
+                            kere = Console.ReadLine().ToLower();
+
+                            if (kere != "nem" && !segitsegTipusok.Contains(kere))
+                            {
+                                Console.WriteLine("Ezt a segítséget már felhasználtad vagy nem elírtál valamit. Kérlek, válassz másikat vagy írd be, hogy 'nem'.");
+                            }
+
+                        } while (kere != "nem" && !segitsegTipusok.Contains(kere));
+                    }
+
+
                     if (kere == "nem")
                     {
-                        Console.Write("Adja meg a jó választ (A, B, C, D): ");
+                        Console.Write("Add meg a válaszod (A, B, C, D): ");
                         string valasz = Console.ReadLine().ToUpper();
 
                         if (valasz == kerdes.Megoldas.ToUpper())
                         {
                             Console.WriteLine("Helyes válasz!");
                             penz += 100000;
-                            Console.WriteLine($"Eddig ennyi pénzt szereztél:{penz}");
+                            if (penz != max)
+                            {
+                                Console.WriteLine($"Eddig ennyi pénzt szereztél:{penz}");
+                            }
                             if (penz != biz3 && penz != biz6 && penz != biz9 && penz != biz12)
                             {
                                 hang.Effektus("jo.wav");
@@ -96,6 +114,8 @@ namespace LegyenÖnIsMilliomos
                                 Console.WriteLine("Gratulálok, megnyerte az egymillió-ötszázezer forintot!");
                                 hang.Leallitas();
                                 hang.Effektus("vege.wav");
+                                Thread.Sleep(8000);
+                                return;
                             }
 
                         }
@@ -127,7 +147,10 @@ namespace LegyenÖnIsMilliomos
                         {
                             Console.WriteLine("Helyes válasz!");
                             penz += 100000;
-                            Console.WriteLine($"Eddig ennyi pénzt szereztél:{penz}");
+                            if (penz != max)
+                            {
+                                Console.WriteLine($"Eddig ennyi pénzt szereztél:{penz}");
+                            }
                             if (penz != biz3 && penz != biz6 && penz != biz9 && penz != biz12)
                             {
                                 hang.Effektus("jo.wav");
@@ -159,6 +182,8 @@ namespace LegyenÖnIsMilliomos
                                 Console.WriteLine("Gratulálok, megnyerte az egymillió-ötszázezer forintot!");
                                 hang.Leallitas();
                                 hang.Effektus("vege.wav");
+                                Thread.Sleep(8000);
+                                return;
                             }
 
                         }
@@ -175,7 +200,7 @@ namespace LegyenÖnIsMilliomos
                     else if (kere == "telefon")
                     {
                         segitsegTipusok.Remove("telefon");
-                        Console.WriteLine("Telefonos segítség aktiválva....*telefonbeszélgetés*");
+                        Console.WriteLine("Telefonos segítség....*telefonbeszélgetés*");
                         Console.WriteLine(Segitseg.Telefon(kerdes));
                         Console.Write("Add meg a válaszod: ");
                         string valasz = Console.ReadLine().ToUpper();
@@ -184,7 +209,10 @@ namespace LegyenÖnIsMilliomos
                         {
                             Console.WriteLine("Helyes válasz!");
                             penz += 100000;
-                            Console.WriteLine($"Eddig ennyi pénzt szereztél:{penz}");
+                            if (penz != max)
+                            {
+                                Console.WriteLine($"Eddig ennyi pénzt szereztél:{penz}");
+                            }
                             if (penz != biz3 && penz != biz6 && penz != biz9 && penz != biz12)
                             {
                                 hang.Effektus("jo.wav");
@@ -216,6 +244,8 @@ namespace LegyenÖnIsMilliomos
                                 Console.WriteLine("Gratulálok, megnyerte az egymillió-ötszázezer forintot!");
                                 hang.Leallitas();
                                 hang.Effektus("vege.wav");
+                                Thread.Sleep(8000);
+                                return;
                             }
 
                         }
@@ -224,8 +254,8 @@ namespace LegyenÖnIsMilliomos
                             Console.WriteLine($"Sajnos rossz választ adtál, a játékot nem folytathatod" +
                                 $"\nA biztos nyereményed:{biztosmegvan}");
                             hang.Effektus("rossz.wav");
-                            Thread.Sleep(2000);
                             hang.Leallitas();
+                            Thread.Sleep(2000);
                             return;
                         }
                     }
@@ -241,7 +271,10 @@ namespace LegyenÖnIsMilliomos
                         {
                             Console.WriteLine("Helyes válasz!");
                             penz += 100000;
-                            Console.WriteLine($"Eddig ennyi pénzt szereztél:{penz}");
+                            if (penz != max)
+                            {
+                                Console.WriteLine($"Eddig ennyi pénzt szereztél:{penz}");
+                            }
                             if (penz != biz3 && penz != biz6 && penz != biz9 && penz != biz12)
                             {
                                 hang.Effektus("jo.wav");
@@ -273,6 +306,8 @@ namespace LegyenÖnIsMilliomos
                                 Console.WriteLine("Gratulálok, megnyerte az egymillió-ötszázezer forintot!");
                                 hang.Leallitas();
                                 hang.Effektus("vege.wav");
+                                Thread.Sleep(8000);
+                                return;
                             }
 
                         }
@@ -281,14 +316,10 @@ namespace LegyenÖnIsMilliomos
                             Console.WriteLine($"Sajnos rossz választ adtál, a játékot nem folytathatod" +
                                 $"\nA biztos nyereményed:{biztosmegvan}");
                             hang.Effektus("rossz.wav");
-                            Thread.Sleep(2000);
                             hang.Leallitas();
+                            Thread.Sleep(2000);
                             return;
                         }
-                    }
-                    else 
-                    {
-                        Console.WriteLine("Ilyet vagy elhasználtál, vagy elírtál valamit");                        
                     }
                 }
             }
@@ -296,10 +327,6 @@ namespace LegyenÖnIsMilliomos
             {
                 Console.WriteLine("Sajnos hibás volt a válasz, nem mehetsz tovább, vége a játéknak.");
             }
-
-
-            Console.WriteLine("Nyomj meg egy gombot a kilépéshez...");
-            Console.ReadKey();
 
 
             

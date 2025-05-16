@@ -10,16 +10,43 @@ namespace LegyenÖnIsMilliomos
 {
     internal class Hang
     {
-
-        private IWavePlayer hatterzene;
+        private WaveOutEvent hatterzene;
         private AudioFileReader zeneolvaso;
+        private string aktualisFajl;
 
         public void HatterZene(string fajl)
         {
+            aktualisFajl = fajl;
+
+            if (hatterzene != null)
+            {
+                hatterzene.Stop();
+                hatterzene.Dispose();
+                zeneolvaso.Dispose();
+            }
+
             zeneolvaso = new AudioFileReader(fajl);
             hatterzene = new WaveOutEvent();
             hatterzene.Init(zeneolvaso);
+            hatterzene.PlaybackStopped += Hatterzene_LejatszasVege;
             hatterzene.Play();
+        }
+
+        private void Hatterzene_LejatszasVege(object sender, StoppedEventArgs e)
+        {
+            // Újraindítjuk a zenét teljes újrainicializálással
+            Task.Run(() =>
+            {
+                try
+                {
+                    Thread.Sleep(100); // Kis késleltetés, hogy elkerüljük az ütközést
+                    HatterZene(aktualisFajl);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Hiba a háttérzene újraindításakor: " + ex.Message);
+                }
+            });
         }
 
         public void Leallitas()
@@ -29,6 +56,8 @@ namespace LegyenÖnIsMilliomos
                 hatterzene.Stop();
                 hatterzene.Dispose();
                 zeneolvaso.Dispose();
+                hatterzene = null;
+                zeneolvaso = null;
             }
         }
 
@@ -47,6 +76,6 @@ namespace LegyenÖnIsMilliomos
                 }
             });
         }
-        
+
     }
 }

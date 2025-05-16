@@ -87,7 +87,7 @@ namespace LegyenÖnIsMilliomos
             }
 
             string[] betuk = { "A", "B", "C", "D" };
-            return $"A nézők szerint a szerint a helyes válasz: {betuk[valasztottIndex]} - {kerdes.Valaszok[valasztottIndex]}";
+            return $"A nézők szerint a helyes válasz: {betuk[valasztottIndex]} - {kerdes.Valaszok[valasztottIndex]}";
 
         }
 
