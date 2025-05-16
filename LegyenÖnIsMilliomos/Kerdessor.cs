@@ -23,7 +23,6 @@ namespace LegyenÖnIsMilliomos
         public void ReadFromFile()
         {
             StreamReader sr = new StreamReader("kerdes.txt");
-            sr.ReadLine();
             List<Kerdes> aktualisLista = new();
 
             while (!sr.EndOfStream)
@@ -38,36 +37,44 @@ namespace LegyenÖnIsMilliomos
                     KerdesCsoportok.Add(aktualisLista);
                     aktualisLista = new();
                 }
-                if (aktualisLista.Count > 0)
-                {
-                    KerdesCsoportok.Add(aktualisLista);
-                }
 
                 aktualisLista.Add(ujsor);
 
             }
+                if (aktualisLista.Count > 0)
+                {
+                    KerdesCsoportok.Add(aktualisLista);
+                }
         }
 
 
-        public void KerdessorValasztasa()
+        public void Kerdessorelkeszites()
         {
-            int veletlen = r.Next(0, kerdessor.Count);
-            Console.WriteLine(kerdessor[veletlen]);
-
-            Console.WriteLine("Adja meg a jó választ: ");
-            string valasz = Console.ReadLine().ToUpper();
-            if (valasz == kerdessor[veletlen].Megoldas)
+            for (int i = 0; i < KerdesCsoportok.Count; i++)
             {
-                Console.WriteLine("Sikeres, továbbléphet a következő szintre!");
-            }
-            else
-            {
+                List<Kerdes> aktualisCsoport = KerdesCsoportok[i];
+                int veletlenIndex = r.Next(aktualisCsoport.Count);
+                Kerdes kerdes = aktualisCsoport[veletlenIndex];
 
-                Console.WriteLine("Sikertelen, játék vége!");
+                Console.WriteLine($"\nKérdés a(z) {i + 1}. csoportból");
+                Console.WriteLine(kerdes);
+                Console.Write("Adja meg a jó választ (A, B, C, D): ");
+                string valasz = Console.ReadLine().ToUpper();
+
+                if (valasz != kerdes.Megoldas.ToUpper())
+                {
+                    Console.WriteLine("Sikertelen, játék vége!");
+                   
+                }
+                else
+                {
+                    Console.WriteLine("Helyes válasz! Tovább léphet a következő szintre.");
+                }
             }
 
+            Console.WriteLine("Gratulálok, az összes szintet sikeresen teljesítetted!");
            
-
         }
+
     }
 }
