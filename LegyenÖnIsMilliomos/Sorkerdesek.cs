@@ -60,7 +60,6 @@ namespace LegyenÖnIsMilliomos
 			else
 			{
                 hang.Effektus("rossz.wav");
-				Console.WriteLine("Sikertelen,játék vége!");
 				joe = false;
             }
 

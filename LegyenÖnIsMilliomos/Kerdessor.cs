@@ -141,6 +141,7 @@ namespace LegyenÖnIsMilliomos
             int biz9 = 900000;    
             int biz12 = 1200000;
             int max = 1500000;
+            int biztosmegvan = 0;
             for (int i = 0; i < KerdesCsoport.Count; i++)
             {
                 List<Kerdes> aktualisCsoport = KerdesCsoport[i];
@@ -167,6 +168,22 @@ namespace LegyenÖnIsMilliomos
                         Console.WriteLine("Gratulálok, egy biztos nyereményhez értél!");
                         Thread.Sleep(4000);
                     }
+                    if (penz == biz3)
+                    {
+                        biztosmegvan = biz3;
+                    }
+                    if (penz == biz6)
+                    {
+                        biztosmegvan = biz6;
+                    }
+                    if (penz == biz9)
+                    {
+                        biztosmegvan = biz9;
+                    }
+                    if (penz == biz12)
+                    {
+                        biztosmegvan = biz12;
+                    }
                     if (penz==max)
                     {
                         Console.WriteLine("Gratulálok, megnyerte az egymillió-ötszázezer forintot!");
@@ -177,6 +194,8 @@ namespace LegyenÖnIsMilliomos
                 }
                 else
                 {
+                    Console.WriteLine($"Sajnos rossz választ adtál, a játékot nem folytathatod" +
+                        $"\nA biztos nyereményed:{biztosmegvan}");
                     hang.Leallitas();
                     hang.Effektus("rossz.wav");
                     return;
