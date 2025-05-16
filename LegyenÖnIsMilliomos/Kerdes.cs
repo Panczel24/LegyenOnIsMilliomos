@@ -40,7 +40,7 @@ namespace LegyenÖnIsMilliomos
 
         public override string? ToString()
         {
-            return $"Kérdés: {kerdes}\n" +
+            return $"sorszám:{sorszam} ,Kérdés: {kerdes}\n" +
                 $"A: {kerdesvalaszok[0],-30} B: {kerdesvalaszok[1],-30}\n" +
                 $"C: {kerdesvalaszok[2],-30} D: {kerdesvalaszok[3],-30}\n" +
                 $"Kategória: {kategoria}, Megoldás: {megoldas}";
